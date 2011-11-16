@@ -1,0 +1,39 @@
+// the overview page
+// not the non-standard "data-cache" attribute, that forces the page to
+// reload every time it is shown (code to do this is in js/app.js)
+
+#list_page{ :'data-role' => 'page', :'data-cache' => 'never' }
+  %div{ :'data-role' => 'header' }
+    %h1 List of Events
+    %a{ :href => '#new_page', :class => 'ui-btn-right', :'data-icon' => 'plus' } New
+  %div{ :'data-role' => 'content' }
+    %ul#event_list{ :'data-role' => 'listview' }
+      - @events.each do |event|
+        %li
+          %a{ :href => "/events/#{event.id}" }= event.name
+
+// the entry for new events
+// has both a "submit" button and a "save" button in the header
+// js/app.js shows how to handle both forms, in practice you would have
+// only one button
+
+#new_page{ :'data-role' => 'page' }
+  %div{ :'data-role' => 'header' }
+    %a{ :href => '#', :'data-rel' => 'back', :'data-direction' => 'reverse'} Cancel
+    %h1 New Events
+    %a{ :href => '#', :class => 'ui-btn-right', :'data-icon' => 'check', :id => 'save_button' } Save
+  %div{ :'data-role' => 'content' }
+    %form{ :action => '/events', :method => 'post', :id => 'event_form' }
+      %ul{ :'data-role' => 'listview' }
+        %li{ :'data-role' => 'list-divider' } Event Details
+        %li{ :'data-role' => 'fieldcontain' }
+          %label{ :for => 'event[name]' } Name:
+          %input#event_name{ :type => 'text', :name=> 'event[name]'}
+        %li{ :'data-role' => 'fieldcontain' }
+          %label{ :for => 'event[location]' } Location:
+          %input#event_location{ :type => 'text', :name=> 'event[location]'}
+        %li{ :'data-role' => 'fieldcontain' }
+          %label{ :for => 'event[url]' } Name:
+          %input#event_url{ :type => 'text', :name=> 'event[url]'}
+        %li{ :'data-role' => 'fieldcontain' }
+          %button{ :type => 'submit' } Submit

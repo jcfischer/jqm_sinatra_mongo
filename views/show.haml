@@ -1,0 +1,8 @@
+%div{ :'data-role' => 'page' }
+  %div{ :'data-role' => 'header' }
+    %a{ :href => '#', :'data-rel' => 'back', :'data-icon' => 'back' } Back
+    %h1= @event.name
+  %div{ :'data-role' => 'content' }
+    %h2= @event.name
+    %p= @event.location
+    %a{ :href => @event.url }= @event.url
